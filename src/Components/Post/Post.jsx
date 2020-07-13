@@ -28,15 +28,21 @@ class Post extends Component {
         }))
     }
 
-    deletePost=(id)=>{
-        axios.delete(`/api/post/${id}`)
+    hanldeDeletePost=()=>{
+       
     }
 
     render() { 
         console.log(this.state)
+        console.log(this)
         return ( 
             <div>
-                <button onClick={this.deletePost}>Delete Post</button>
+                <h2>{this.state.title}</h2>
+                <img src={this.state.img} alt=""/>
+                <h3>{this.state.author}</h3>
+                <img src={this.state.authorPicture} alt=""/>
+                <p>{this.state.content}</p>
+                <button onClick={this.handleDeletePost}>Delete Post</button>
             </div>
          );
     }

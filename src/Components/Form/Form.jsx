@@ -1,6 +1,5 @@
 import React, {Component}from 'react';
 import axios from 'axios';
-import {connect} from 'react-redux';
 
 
 
@@ -32,8 +31,8 @@ class Form extends Component {
     render() { 
         return ( 
             <div>
-                <img src={this.state.img} alt={this.state.title}/>
                 <input name='title' placeholder="title" type="text" value={this.state.title} onChange={(e)=>this.handleInput(e)}/>
+                <img src={this.state.img} alt={this.state.title}/>
                 <input name='image URL' placeholder="image URL" type="text" value={this.state.img} onChange={(e)=>this.handleInput(e)}/>
                 <input name='content' placeholder="content" type="text" value={this.state.content} onChange={(e)=>this.handleInput(e)}/>
                 <button onClick={this.handleSend}>Post</button>
@@ -42,6 +41,5 @@ class Form extends Component {
     }
 }
  
-const mapStateToProps = reduxState => reduxState;
 
-export default connect(mapStateToProps)(Form);
+export default Form;

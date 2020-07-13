@@ -1,8 +1,9 @@
 import React, {Component}from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import Dashboard from '../Dashboard/Dashboard';
-import {getUser} from '../../ducks/reducer';
+import {getUser,clearUser} from '../../ducks/reducer';
+import axios from 'axios';
+import './nav.css';
 
 
 class Nav extends Component {
@@ -10,27 +11,44 @@ class Nav extends Component {
         super(props);
         this.state = {  }
     }
+
+
+    componentDidMount(){
+        this.getProfileInfo();
+    }
+
+    getProfileInfo=()=>{
+        // axios.get('/auth/me')
+        // .then(res=>getUser(res.data[0].username,res.data[0].profile_pic))
+    }
+
+    handleLogout=()=>{
+        axios.post(`/auth/logout`)
+        .then(()=>clearUser())
+    }
+
     render() { 
         console.log(this.props)
         console.log(this.props.username)
         return ( 
-            <div>
+            <div className='nav'>
                 <img src={this.props.profilePicture} alt={`robot ${this.props.username}`}/>
                 <h2>{this.props.username}</h2>
-                <Link to='/dashboard'>Home</Link>
-                <Link to='/new'>New Post</Link>
-                <Link to='/'>Logout</Link>
+                    <Link to='/dashboard' >
+                        <button className='home'></button>
+                    </Link>
+                    <Link to='/new'>
+                    <button className='new-post'></button>
+                    </Link>
+                    <Link to='/'>
+                        <button  className='logout' onClick={this.handleLogout}></button>
+                    </Link>
             </div>
          );
     }
 }
 
 const mapStateToProps = reduxState =>reduxState;
-    // return{
-    //     username:reduxState.username,
-    //     profilePicture: reduxState.profilePicture
-    // }
-///i might be able to leave as reduxState. will check in a sec!!!!
-// }
+
  
-export default connect(mapStateToProps,{getUser})(Nav);
+export default connect(mapStateToProps,{getUser,clearUser})(Nav);

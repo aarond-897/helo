@@ -13,7 +13,8 @@ app.use(express.json());
 app.use(session({
     resave: false,
     saveUninitialized:true,
-    secret: SESSION_SECRET
+    secret: SESSION_SECRET,
+    cookie: {maxAge:1000*60*60*24*365}
 }))
 
 massive({
@@ -30,7 +31,7 @@ massive({
 app.post('/auth/register',authCtrl.register)
 app.post('/auth/login',authCtrl.login)
 app.post('/auth/logout',authCtrl.logout)
-app.get('/auth/me')
+app.get('/auth/me',authCtrl.getProfileInfo)
 
 //post endpoints
 app.get('/api/posts/', postCtrl.getPosts)

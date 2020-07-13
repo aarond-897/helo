@@ -35,13 +35,6 @@ class Dashboard extends Component {
         .then(res=>this.setState({posts:res.data, search:''}))
     }
 
-    handleReset=()=>{
-        this.setState({
-            search:'',
-            userposts:true,
-            posts:[]
-        })
-    }
 
     handleCheckbox=()=>{
         this.setState({
@@ -49,9 +42,17 @@ class Dashboard extends Component {
         })
     }
 
+    deletePost=(id)=>{
+        axios.delete(`/api/post/${id}`)
+        .then(res=>this.setState({
+            posts:res.data
+        }))
+    }
+
     render() { 
+        console.log(this.state.posts)
         const posts=this.state.posts.map((post,i)=>(
-            <div className='post' key={i}>
+            <div className='post' key={i} deletePostFn={this.deletePost}>
                 <Link to={`/post/${post.id}`}>
                 <h2 className='post-title'>{post.title}</h2>
                 <h4 className='post-author'>{post.username}</h4>
@@ -63,7 +64,8 @@ class Dashboard extends Component {
             <div>
                 <input onChange={(e)=>this.handleInput(e)} value={this.state.search}/>
                 <button onClick={this.handleSearch}>Search</button>
-                <button onClick={this.handleReset}>Reset</button>
+                <button onClick={this.handleSearchReset}>Reset</button>
+                My Posts
                 <input onClick={this.handleCheckbox} type="checkbox" defaultChecked/>
                 {posts}
                 {console.log(posts)}

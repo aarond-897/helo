@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {getUser} from '../../ducks/reducer'
+import {getUser} from '../../ducks/reducer';
+import './auth.css';
 
 class Auth extends Component {
     constructor(props) {
@@ -23,8 +24,7 @@ class Auth extends Component {
         axios.post('/auth/register', {username, password})
         .then(res=>{
             console.log(res)
-            //do something with response later once reducer and action is setup and imported
-            this.props.getUser(res.data.id, res.data.username, res.data.profile_pic)
+            this.props.getUser(res.data.username, res.data.profile_pic)
             this.props.history.push('/dashboard');
         })
     }
@@ -33,10 +33,8 @@ class Auth extends Component {
         const {username, password}=this.state;
         axios.post('/auth/login',{username, password})
         .then(res=>{
-            console.log(res)
             console.log(res.data)
-            //do something with response later once reducer and action is setup and imported
-            this.props.getUser(res.data.id, res.data.username, res.data.profile_pic)
+            this.props.getUser(res.data.username, res.data.profile_pic)
             this.props.history.push('/dashboard');
         })
     }
@@ -44,11 +42,19 @@ class Auth extends Component {
 
     render() { 
         return ( 
-            <div>
-                <input name='username' placeholder='username' value={this.state.username} onChange={(e)=>this.handleInput(e)}/>
-                <input name='password' placeholder='password' value={this.state.password} onChange={(e)=>this.handleInput(e)}/>
-                <button onClick={this.handleLogin}>Login</button>
-                <button onClick={this.handleRegister}>Register</button>
+            <div className='page'>
+                <div className='input'>
+                    <img src="https://raw.githubusercontent.com/DevMountain/simulation-3/master/assets/helo_logo.png" alt=""/>
+                    <h1>Helo</h1>
+                    <div className="inputs">
+                    <input name='username'  placeHolder='username' value={this.state.username} onChange={(e)=>this.handleInput(e)}/>
+                    <input name='password' placeHolder='password' value={this.state.password} onChange={(e)=>this.handleInput(e)}/>
+                    </div>
+                    <div className="buttons">
+                    <button onClick={this.handleLogin}>Login</button>
+                    <button onClick={this.handleRegister}>Register</button>
+                    </div>
+                </div>
             </div>
          );
     }

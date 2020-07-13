@@ -1,0 +1,51 @@
+*{
+    box-sizing: border-box;
+}
+
+.nav{
+    width: 8%;
+    height: 100vh;
+    background-image: linear-gradient(  #FF9770,#FF70a6);
+}
+
+.nav img{
+    border-radius: 50%;
+    height: 15%;
+    width: 60%;
+    background-color: white;
+}
+
+.nav h2{
+    color: white;
+}
+
+
+.home{
+    background-image: url('https://raw.githubusercontent.com/DevMountain/simulation-3/master/assets/home_logo.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    height: 30vh;
+    width: 80%;
+    border: transparent;
+    cursor: pointer;
+}
+
+.new-post{
+    background-image: url('https://raw.githubusercontent.com/DevMountain/simulation-3/master/assets/new_logo.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    height: 30vh;
+    width: 82%;
+    border: transparent;
+    cursor: pointer;
+}
+
+.logout{
+    background-image: url('https://raw.githubusercontent.com/DevMountain/simulation-3/master/assets/shut_down.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    height: 30vh;
+    width: 82%;
+    border: transparent;
+    cursor: pointer;
+}

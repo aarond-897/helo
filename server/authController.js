@@ -17,6 +17,7 @@ module.exports={
         
         delete foundUser[0].password
         req.session.user=foundUser[0]
+        console.log(req.session.user)
         res.status(202).send(req.session.user)
         // res.status(202).send(foundUser[0])
     },
@@ -41,5 +42,12 @@ module.exports={
     logout:(req,res)=>{
         req.session.destroy();
         res.sendStatus(200);
+    },
+    getProfileInfo:async(req,res)=>{
+        db=req.app.get('db');
+        console.log(req)
+        const profileInfo= await db.get_nav_info(res.session.user.id)
+        console.log(profileInfo)
+        res.status(201).send(profileInfo)
     }
 }
