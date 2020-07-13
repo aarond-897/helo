@@ -17,7 +17,7 @@ module.exports={
         
         delete foundUser[0].password
         req.session.user=foundUser[0]
-        console.log(req.session.user)
+        // console.log(req.session.user)
         res.status(202).send(req.session.user)
         // res.status(202).send(foundUser[0])
     },
@@ -26,7 +26,7 @@ module.exports={
             db=req.app.get('db');
             console.log(username)
         const foundUser = await db.check_user({username})
-        console.log(foundUser)
+        // console.log(foundUser)
         if(foundUser[0]){
            return res.status(400).send('User already exists')
         }
@@ -35,7 +35,9 @@ module.exports={
             hash=bcrypt.hashSync(password,salt),
             profilePicture=`https://robohash.org/${username}`;
         const newUser = await db.add_user({username, password:hash, profilePicture})
+        console.log(newUser)
         req.session.user=newUser[0]
+        console.log(req.session.user)
         res.status(201).send(req.session.user)
         // res.status(201).send(newUser)
     },
@@ -45,9 +47,8 @@ module.exports={
     },
     getProfileInfo:async(req,res)=>{
         db=req.app.get('db');
-        console.log(req)
-        const profileInfo= await db.get_nav_info(res.session.user.id)
+        const profileInfo= await db.get_nav_info(req.session.user.id)
         console.log(profileInfo)
-        res.status(201).send(profileInfo)
+        res.status(200).send(profileInfo[0])
     }
 }

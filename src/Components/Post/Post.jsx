@@ -17,7 +17,7 @@ class Post extends Component {
         this.getPost();
     }
     getPost=()=>{
-        console.log(this.props.match.params.postid)
+        // console.log(this.props.match.params.postid)
         axios.get(`/api/post/${this.props.match.params.postid}`)
         .then(res=>this.setState({
             title: res.data.title,
@@ -28,8 +28,8 @@ class Post extends Component {
         }))
     }
 
-    hanldeDeletePost=()=>{
-       
+    handleDeletePost=(id)=>{
+       this.props.location.aboutProps.deletePostFn(id)
     }
 
     render() { 
@@ -42,7 +42,7 @@ class Post extends Component {
                 <h3>{this.state.author}</h3>
                 <img src={this.state.authorPicture} alt=""/>
                 <p>{this.state.content}</p>
-                <button onClick={this.handleDeletePost}>Delete Post</button>
+                <button onClick={()=>this.handleDeletePost(this.props.match.params.postid)}>Delete Post</button>
             </div>
          );
     }

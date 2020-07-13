@@ -1,3 +1,3 @@
-SELECT * FROM posts
-JOIN helo_users ON posts.author_id=helo_users.id
-WHERE posts.title LIKE concat('%' ,$1,'%');
+SELECT p.title, p.img, p.id, hu.username, hu.profile_pic FROM posts p
+JOIN helo_users hu ON p.author_id=hu.id
+WHERE p.title LIKE concat('%' ,$1,'%');

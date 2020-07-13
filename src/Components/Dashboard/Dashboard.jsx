@@ -1,6 +1,7 @@
 import React, {Component}from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import './dashboard.css';
 
 
 class Dashboard extends Component {
@@ -24,8 +25,8 @@ class Dashboard extends Component {
     }
 
     handleSearch=()=>{
-        console.log(this.props)
-        console.log(this.state.posts)
+        // console.log(this.props)
+        // console.log(this.state.posts)
         axios.get(`/api/posts/?search=${this.state.search}&userposts=${this.state.userposts}`)
         .then(res=>this.setState({posts:res.data}))
     }
@@ -46,14 +47,14 @@ class Dashboard extends Component {
         axios.delete(`/api/post/${id}`)
         .then(res=>this.setState({
             posts:res.data
-        }))
+        }), this.props.history.push('/dashboard'))
     }
 
     render() { 
-        console.log(this.state.posts)
+        // console.log(this.state.posts)
         const posts=this.state.posts.map((post,i)=>(
             <div className='post' key={i} deletePostFn={this.deletePost}>
-                <Link to={`/post/${post.id}`}>
+                <Link to={{pathname:`/post/${post.id}`, aboutProps:{deletePostFn:this.deletePost}}}>
                 <h2 className='post-title'>{post.title}</h2>
                 <h4 className='post-author'>{post.username}</h4>
                 <img src={post.profile_pic} alt=""/>
@@ -61,14 +62,18 @@ class Dashboard extends Component {
             </div>
         ))
         return ( 
-            <div>
-                <input onChange={(e)=>this.handleInput(e)} value={this.state.search}/>
+            <div className='dashboard'>
+                <div className='search-bar'>
+                <input className='search' placeholder='search by title' onChange={(e)=>this.handleInput(e)} value={this.state.search}/>
                 <button onClick={this.handleSearch}>Search</button>
                 <button onClick={this.handleSearchReset}>Reset</button>
                 My Posts
                 <input onClick={this.handleCheckbox} type="checkbox" defaultChecked/>
+                </div>
+                <div className="posts">
                 {posts}
-                {console.log(posts)}
+                {/* {console.log(posts)} */}
+                </div>
             </div>
          );
     }

@@ -17,6 +17,7 @@ module.exports={
         else if(!search && userposts==='false'){
             console.log('get all posts 2 working')
             const posts = await db.posts_not_by_user(id)
+            console.log(posts)
             delete posts[0].password
             res.status(200).send(posts)
         }
@@ -51,6 +52,7 @@ module.exports={
         .catch(err=>console.log(err))
     },
     deletePost:async(req,res)=>{
+        console.log('delete is working')
         const {postid}=req.params,
             db=req.app.get('db');
 

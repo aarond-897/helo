@@ -32,8 +32,8 @@ class Form extends Component {
         return ( 
             <div>
                 <input name='title' placeholder="title" type="text" value={this.state.title} onChange={(e)=>this.handleInput(e)}/>
-                <img src={this.state.img} alt={this.state.title}/>
-                <input name='image URL' placeholder="image URL" type="text" value={this.state.img} onChange={(e)=>this.handleInput(e)}/>
+                <img src={this.state.img} />
+                <input name='img' placeholder="image URL" type="text" value={this.state.img} onChange={(e)=>this.handleInput(e)}/>
                 <input name='content' placeholder="content" type="text" value={this.state.content} onChange={(e)=>this.handleInput(e)}/>
                 <button onClick={this.handleSend}>Post</button>
             </div>

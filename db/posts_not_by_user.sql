@@ -1,3 +1,3 @@
-SELECT * FROM posts
-JOIN helo_users ON helo_users.id= posts.author_id
-WHERE helo_users.id != $1;
+SELECT p.title, p.img, p.id, hu.username, hu.profile_pic FROM posts p
+JOIN helo_users hu ON hu.id= p.author_id
+WHERE hu.id != $1;

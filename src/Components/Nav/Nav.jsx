@@ -18,8 +18,9 @@ class Nav extends Component {
     }
 
     getProfileInfo=()=>{
-        // axios.get('/auth/me')
-        // .then(res=>getUser(res.data[0].username,res.data[0].profile_pic))
+        console.log('refresh working')
+        axios.get('/auth/me')
+        .then(res=>this.props.getUser(res.data.username,res.data.profile_pic))
     }
 
     handleLogout=()=>{
@@ -28,8 +29,8 @@ class Nav extends Component {
     }
 
     render() { 
-        console.log(this.props)
-        console.log(this.props.username)
+        // console.log(this.props)
+        // console.log(this.props.username)
         return ( 
             <div className='nav'>
                 <img src={this.props.profilePicture} alt={`robot ${this.props.username}`}/>
