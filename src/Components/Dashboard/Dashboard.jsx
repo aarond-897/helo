@@ -1,6 +1,5 @@
 import React, {Component}from 'react';
 import axios from 'axios';
-import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 
@@ -27,13 +26,12 @@ class Dashboard extends Component {
     handleSearch=()=>{
         console.log(this.props)
         console.log(this.state.posts)
-        axios.get(`/api/posts/${this.props.id}
-        ?search=${this.state.search}&userposts=${this.state.userposts}`)
+        axios.get(`/api/posts/?search=${this.state.search}&userposts=${this.state.userposts}`)
         .then(res=>this.setState({posts:res.data}))
     }
 
     handleSearchReset=()=>{
-        axios.get(`/api/posts/${this.props.id}?userposts=${this.state.userposts}`)
+        axios.get(`/api/posts/?userposts=${this.state.userposts}`)
         .then(res=>this.setState({posts:res.data, search:''}))
     }
 
@@ -54,11 +52,11 @@ class Dashboard extends Component {
     render() { 
         const posts=this.state.posts.map((post,i)=>(
             <div className='post' key={i}>
-                {/* <Link to={`/post/${post.id}`}> */}
+                <Link to={`/post/${post.id}`}>
                 <h2 className='post-title'>{post.title}</h2>
                 <h4 className='post-author'>{post.username}</h4>
                 <img src={post.profile_pic} alt=""/>
-                {/* </Link> */}
+                </Link>
             </div>
         ))
         return ( 
@@ -74,6 +72,6 @@ class Dashboard extends Component {
     }
 }
  
-const mapStateToProps=reduxState=>reduxState;
+// const mapStateToProps=reduxState=>reduxState;
 
-export default connect(mapStateToProps)(Dashboard);
+export default Dashboard;

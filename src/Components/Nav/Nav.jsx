@@ -2,6 +2,7 @@ import React, {Component}from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Dashboard from '../Dashboard/Dashboard';
+import {getUser} from '../../ducks/reducer';
 
 
 class Nav extends Component {
@@ -32,4 +33,4 @@ const mapStateToProps = reduxState =>reduxState;
 ///i might be able to leave as reduxState. will check in a sec!!!!
 // }
  
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps,{getUser})(Nav);

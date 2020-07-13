@@ -16,10 +16,9 @@ module.exports={
         }
         
         delete foundUser[0].password
-        // req.session.user=foundUser[0]
-        // console.log(req.session.user)
-        // res.status(202).send(req.session.user)
-        res.status(202).send(foundUser[0])
+        req.session.user=foundUser[0]
+        res.status(202).send(req.session.user)
+        // res.status(202).send(foundUser[0])
     },
     register:async(req,res)=>{
         const {username, password}=req.body,
@@ -35,8 +34,12 @@ module.exports={
             hash=bcrypt.hashSync(password,salt),
             profilePicture=`https://robohash.org/${username}`;
         const newUser = await db.add_user({username, password:hash, profilePicture})
-        // req.session.user=newUser[0]
-        // res.status(201).send(req.session.user)
-        res.status(201).send(newUser)
+        req.session.user=newUser[0]
+        res.status(201).send(req.session.user)
+        // res.status(201).send(newUser)
+    },
+    logout:(req,res)=>{
+        req.session.destroy();
+        res.sendStatus(200);
     }
 }

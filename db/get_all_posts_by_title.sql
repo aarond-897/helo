@@ -1,2 +1,3 @@
 SELECT * FROM posts
-WHERE title LIKE '%' + $1 +'%';
+JOIN helo_users ON posts.author_id=helo_users.id
+WHERE posts.title LIKE concat('%' ,$1,'%');
